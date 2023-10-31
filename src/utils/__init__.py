@@ -11,6 +11,6 @@ async def stream_generator(subscription):
             async for event in subscription:
                 if "content" in event["choices"][0].delta:
                     current_response = event["choices"][0].delta.content
-                    yield current_response
+                    yield "data: " + current_response + "\n\n"
         except asyncio.TimeoutError:
             raise HTTPException(status_code=504, detail="Stream timed out")
